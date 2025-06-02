@@ -1039,7 +1039,9 @@ section,
   padding: 80px 0;
   position: relative;
   clip-path: inset(0);
+  background-color: #000000; /* Fondo negro */
 }
+
 
 .call-to-action .container {
   position: relative;
