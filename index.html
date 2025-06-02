@@ -1444,6 +1444,51 @@
   <!-- Main JS File -->
   <script src="assets/js/main.js"></script>
 
+
+
+ <!-- Botón flotante para abrir el chatbot -->
+  <div id="chatbot-btn" onclick="toggleChatbot()">
+    <i class="bi bi-chat"></i> <!-- Icono del chat -->
+  </div>
+
+  <!-- Ventana emergente del Chatbot -->
+  <div id="chatbot-window" style="display: none;">
+    <div id="chat-container">
+      <div id="chat-header">Chatbot Infotel Perú</div>
+      <div id="chat-messages"></div>
+
+      <div id="chat-input-container">
+        <input id="chat-input" type="text" placeholder="Escribe un mensaje..." autocomplete="off" />
+        <button id="chat-send">Enviar</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="assets/vendor/aos/aos.js"></script>
+  <script src="assets/vendor/glightbox/js/glightbox.min.js"></script>
+  <script src="assets/vendor/swiper/swiper-bundle.min.js"></script>
+  <script src="assets/js/main.js"></script>
+
+  <!-- Script para mostrar y ocultar el chatbot -->
+  <script>
+    function toggleChatbot() {
+      const chatbotWindow = document.getElementById('chatbot-window');
+      // Si la ventana está oculta, la mostramos. Si está visible, la ocultamos.
+      if (chatbotWindow.style.display === 'none' || chatbotWindow.style.display === '') {
+        chatbotWindow.style.display = 'block';
+      } else {
+        chatbotWindow.style.display = 'none';
+      }
+    }
+
+
+  </script>
+
+
+
+
 </body>
 
 </html>
