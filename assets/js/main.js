@@ -1,6 +1,55 @@
 (function() {
   "use strict";
 
+  // Función para manejar la selección de idioma
+  function handleLanguageSelection(language) {
+    // Ocultar todos los checkmarks
+    document.querySelectorAll('.bi-check').forEach((check) => check.style.visibility = 'hidden');
+
+    // Mostrar el checkmark del idioma seleccionado
+    if (language === 'Español') {
+      document.getElementById('checkSpanish').style.visibility = 'visible';
+    } else if (language === 'English') {
+      document.getElementById('checkEnglish').style.visibility = 'visible';
+    }
+    // Actualizar el texto del botón
+    document.getElementById('dropdownLangCurrency').innerHTML = `${language} / ${document.getElementById('dropdownLangCurrency').innerHTML.split(' / ')[1]}`;
+  }
+
+  // Función para manejar la selección de moneda
+  function handleCurrencySelection(currency) {
+    // Ocultar todos los checkmarks de moneda
+    document.querySelectorAll('.bi-check').forEach((check) => check.style.visibility = 'hidden');
+
+    // Mostrar el checkmark de la moneda seleccionada
+    if (currency === 'PEN') {
+      document.getElementById('checkPEN').style.visibility = 'visible';
+    } else if (currency === 'USD') {
+      document.getElementById('checkPEN').style.visibility = 'hidden';
+    }
+    // Actualizar el texto del botón
+    document.getElementById('dropdownLangCurrency').innerHTML = `${document.getElementById('dropdownLangCurrency').innerHTML.split(' / ')[0]} / ${currency}`;
+  }
+
+  // Agregar eventos para el idioma
+  document.getElementById('selectEnglish').addEventListener('click', function() {
+    handleLanguageSelection('English');
+  });
+  document.getElementById('selectSpanish').addEventListener('click', function() {
+    handleLanguageSelection('Español');
+  });
+
+  // Agregar eventos para la moneda
+  document.getElementById('selectPEN').addEventListener('click', function() {
+    handleCurrencySelection('PEN');
+  });
+  document.getElementById('selectUSD').addEventListener('click', function() {
+    handleCurrencySelection('USD');
+  });
+
+
+
+
   /**
    * Apply .scrolled class to the body as the page is scrolled down
    */
@@ -318,6 +367,7 @@
         })
       });
 
+
       if (!res.ok) {
         throw new Error(`HTTP error! status: ${res.status}`);
       }
@@ -345,5 +395,6 @@
   input.addEventListener('keydown', e => {
     if (e.key === 'Enter') sendBtn.click();
   });
+  
 
 })();
