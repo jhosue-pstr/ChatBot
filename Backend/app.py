@@ -1,4 +1,5 @@
 from flask import Flask, request, jsonify
+from flask_cors import CORS
 import cliente
 import almacen
 import catalogo
@@ -22,6 +23,7 @@ import ventas
 
 
 app = Flask(__name__)
+CORS(app)
 
 @app.route('/')
 def inicio():
