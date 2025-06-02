@@ -1,0 +1,42 @@
+/* Ocultar elementos que cargan */
+.loading, .loading-delay, .loading-inline-block, .loading-inline,
+.loading-block, .loading-flex, .loading-table, .loading-grid, .loading-inline-flex {
+    display: none;
+}
+
+/* Ocultar estados de conexión */
+.offline {
+    display: none;
+}
+
+/* Ocultar elementos sucios/modificados */
+.dirty:not(textarea):not(input):not(select) {
+    display: none;
+}
+
+/* Evitar animación extraña en autocompletado */
+input:-webkit-autofill, select:-webkit-autofill, textarea:-webkit-autofill {
+    animation-duration: 50000s;
+    animation-name: bootstrapAutofill;
+}
+
+/* Animación vacía */
+@keyframes bootstrapAutofill { from {} }
+
+
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f8f9fa;
+}
+
+.card {
+    transition: transform 0.3s;
+}
+
+.card:hover {
+    transform: scale(1.05);
+}
+
+nav .btn:hover {
+    opacity: 0.8;
+}
