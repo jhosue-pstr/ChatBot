@@ -8,7 +8,7 @@
 /* Global Colors - The following color variables are used throughout the website. Updating them here will change the color scheme of the entire website */
 :root { 
   --background-color: #ffffff; /* Background color for the entire website, including individual sections */
-  --default-color: #444444; /* Default color used for the majority of the text content across the entire website */
+  --default-color: #444444; /* Default color used for the majority of the ontent across the entire website */
   --heading-color: #555555; /* Color for headings, subheadings and title throughout the website */
   --accent-color: #0c0c0c; /* Accent color that represents your brand on the website. It's used for buttons, links, and other elements that need to stand out */
   --surface-color: #ffffff; /* The surface color is used as a background of boxed elements within sections, such as cards, icon boxes, or other elements that require a visual separation from the global background. */
@@ -41,7 +41,7 @@
 }
 
 .accent-background {
-  --background-color: #3fbbc0;
+  --background-color: rgb(74, 102, 172); /* Esto cambiará el fondo a tu color preferido */
   --default-color: #ffffff;
   --heading-color: #ffffff;
   --surface-color: #65c9cd;
@@ -225,7 +225,7 @@ h6 {
 }
 
 .header .topbar {
-  background-color: var(--accent-color);
+  background-color: rgb(74, 102, 172);  /* Color de fondo */
   color: var(--contrast-color);
   height: 40px;
   padding: 0;
@@ -256,13 +256,14 @@ h6 {
 .header .cta-btn,
 .header .cta-btn:focus {
   color: var(--contrast-color);
-  background: var(--accent-color);
+  background: rgb(74, 102, 172); /* Cambié el fondo a RGB(74, 102, 172) */
   font-size: 14px;
   padding: 8px 20px;
   margin: 0 5px 0 30px;
   border-radius: 4px;
   transition: 0.3s;
 }
+
 
 .header .cta-btn:hover,
 .header .cta-btn:focus:hover {
@@ -1039,7 +1040,9 @@ section,
   padding: 80px 0;
   position: relative;
   clip-path: inset(0);
+  background-color: #000000; /* Fondo negro */
 }
+
 
 .call-to-action .container {
   position: relative;
@@ -1952,9 +1955,218 @@ section,
   color: var(--accent-color);
 }
 
+#chatbot-btn {
+  position: fixed;
+  bottom: 20px;
+  left: 20px; /* Se mueve el botón a la izquierda */
+  background-color: rgb(74, 102, 172); /* Color RGB para el fondo */
+  color: white;
+  border-radius: 50%;
+  padding: 18px; /* Aumentamos el padding para hacerlo más grande */
+  cursor: pointer;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  width: 60px;  /* Aumentamos el tamaño del botón */
+  height: 60px; /* Aumentamos el tamaño del botón */
+  display: flex;
+  justify-content: center;
+  align-items: center;  /* Centrar el ícono dentro de la bolita */
+}
+
+#chatbot-btn i {
+  font-size: 28px; /* Hacer el ícono un poco más grande */
+}
+
+  /* Estilo para la ventana emergente del chatbot */
+  #chatbot-window {
+    position: fixed;
+    bottom: 80px;
+    left: 20px; /* Se mantiene a la izquierda para alinearlo con el botón */
+    width: 400px;
+    height: 600px;
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    display: none;
+    z-index: 1000;
+  }
+
+  #chatbot-window iframe {
+    width: 100%;
+    height: 100%;
+    border: none;
+    border-radius: 8px;
+  }
 /*--------------------------------------------------------------
 # Starter Section Section
 --------------------------------------------------------------*/
+
+
+#chat-container {
+  width: 400px;
+  height: 595px;
+  border: 1px solid #ddd;
+  border-radius: 12px;
+  display: flex;
+  flex-direction: column;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  background-color: #fff;
+}
+
+#chat-header {
+  background-color: rgb(74, 102, 172);  /* Color de fondo del encabezado */
+  color: white;
+  padding: 16px;
+  font-weight: 700;
+  text-align: center;
+  border-radius: 12px 12px 0 0;
+  font-size: 18px;
+  letter-spacing: 1px;
+  user-select: none;
+}
+
+#chat-messages {
+  flex: 1;  /* Esta propiedad asegura que ocupe el espacio disponible */
+  padding: 15px;
+  overflow-y: auto;
+  background: #f7f9fc;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  
+}
+
+.message {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  max-width: 80%;
+}
+
+.message.user {
+  align-self: flex-end;
+  flex-direction: row-reverse;
+}
+
+.message.user .avatar {
+  border-radius: 50%;
+  width: 36px;
+  height: 36px;
+}
+
+.message.bot .avatar {
+  border-radius: 50%;
+  width: 36px;
+  height: 36px;
+}
+
+.message .text {
+  padding: 10px 14px;
+  border-radius: 16px;
+  font-size: 15px;
+  line-height: 1.3;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+  max-width: 100%;
+}
+
+.message.user .text {
+  background-color: rgb(74, 102, 172);  /* Fondo del mensaje del usuario */
+  color: white;
+  border-bottom-right-radius: 4px;
+}
+
+.message.bot .text {
+  background-color: #e2e8f0;
+  color: #2d3748;
+  border-bottom-left-radius: 4px;
+}
+
+#chat-input-container {
+  display: flex;
+  padding: 12px 15px;
+  border-top: 1px solid #ddd;
+  background-color: #fff;
+  gap: 8px;
+}
+
+#chat-input {
+  flex: 1;
+  padding: 10px 14px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 20px;
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+#chat-input:focus {
+  border-color: rgb(74, 102, 172);  /* Color de borde cuando el input está en foco */
+  box-shadow: 0 0 5px rgb(74, 102, 172);
+}
+
+
+#chat-send {
+  background-color: rgb(74, 102, 172);  /* Fondo del botón de enviar */
+  color: white;
+  border: none;
+  padding: 0 16px;
+  font-weight: 700;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  min-width: 60px;
+}
+
+#chat-send:hover {
+  background-color: rgb(74, 102, 172);  /* Cambio de color al hacer hover sobre el botón */
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+#chatbot-header {
+  display: flex;
+  justify-content: space-between; /* Para separar el texto del botón */
+  align-items: center;
+  padding: 16px;
+  font-weight: 700;
+  text-align: center;
+  border-radius: 12px 12px 0 0;
+  font-size: 18px;
+  letter-spacing: 1px;
+  user-select: none;
+  position: relative; /* Para permitir que el botón se posicione en relación con el contenedor */
+}
+
+#chatbot-close {
+  background-color: black;  /* Fondo negro */
+  border: none;
+  color: rgb(255, 255, 255);  /* La X será verde */
+  font-size: 13px;  /* Hacer la X más pequeña */
+  padding: 6px 12px;  /* Hacer el botón más ancho, agregando más espacio */
+  cursor: pointer;
+  border-radius: 50%; /* Hacer el fondo redondeado */
+  position: absolute;  /* Posicionarlo de manera absoluta */
+  right: 3px;  /* Moverlo más a la derecha */
+  top: 5px;  /* Moverlo más arriba */
+}
+
+#chatbot-close:hover {
+  background-color: #333;  /* Cambia el fondo cuando pasas el mouse */
+}
+
+
+
+
 .starter-section {
   /* Add your styles here */
 }
