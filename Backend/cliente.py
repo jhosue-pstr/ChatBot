@@ -1,4 +1,8 @@
 import mysql.connector
+from flask import Flask, render_template, request, redirect, url_for
+import requests
+
+app = Flask(__name__)
 
 def obtener_conexion():
     return mysql.connector.connect(
@@ -13,16 +17,20 @@ def crear_cliente(data):
     conexion = obtener_conexion()
     cursor = conexion.cursor()
     sql = """
-        INSERT INTO clientes (nombre, tipo_documento, nro_documento, direccion, telefono, email)
-        VALUES (%s, %s, %s, %s, %s, %s)
+    INSERT INTO clientes (nombres, usuario, apellido_paterno, apellido_materno, contraseña, email, telefono, direccion, tipo_documento, nro_documento)
+    VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
     """
     cursor.execute(sql, (
-        data['nombre'],
-        data['tipo_documento'],
-        data['nro_documento'],
-        data['direccion'],
+        data['nombres'],
+        data['usuario'],
+        data['apellido_paterno'],
+        data['apellido_materno'],
+        data['contraseña'], 
+        data['email'],
         data['telefono'],
-        data['email']
+        data['direccion'],
+        data['tipo_documento'],
+        data['nro_documento']
     ))
     conexion.commit()
     cursor.close()
@@ -50,16 +58,21 @@ def actualizar_cliente(id_cliente, data):
     conexion = obtener_conexion()
     cursor = conexion.cursor()
     sql = """
-        UPDATE clientes SET nombre = %s, tipo_documento = %s, nro_documento = %s,
-        direccion = %s, telefono = %s, email = %s WHERE id_cliente = %s
+        UPDATE clientes SET nombres = %s, usuario = %s, apellido_paterno = %s, apellido_materno = %s, contraseña = %s,
+        email = %s, telefono = %s, direccion = %s, tipo_documento = %s, nro_documento = %s
+        WHERE id_cliente = %s
     """
     cursor.execute(sql, (
-        data['nombre'],
+        data['nombres'],
+        data['usuario'],
+        data['apellido_paterno'],
+        data['apellido_materno'],
+        data['contraseña'],
+        data['email'],
+        data['telefono'],
+        data['direccion'],
         data['tipo_documento'],
         data['nro_documento'],
-        data['direccion'],
-        data['telefono'],
-        data['email'],
         id_cliente
     ))
     conexion.commit()

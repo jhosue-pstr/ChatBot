@@ -1,5 +1,8 @@
 from flask import Flask, request, jsonify
 from flask_cors import CORS
+from datetime import datetime
+from datetime import date  
+import requests
 import cliente
 import almacen
 import catalogo
@@ -19,16 +22,75 @@ import seguimientoPedidos
 import tipos
 import ventaDetalle
 import ventas
+import mysql.connector
+
+
 
 
 
 app = Flask(__name__)
 CORS(app)
 
+def obtener_conexion():
+    return mysql.connector.connect(
+        host="localhost",
+        user="root",
+        password="",
+        database="infotel_db",
+        port=3306
+    )
+
 @app.route('/')
 def inicio():
     return "API Clientes - INFOTEL BUSINESS"
 
+@app.route('/registrar', methods=['GET', 'POST'])
+def registrar():
+    if request.method == 'POST':
+        data = {
+            'nombres': request.form['nombre'],
+            'tipo_documento': request.form['tipo_documento'],
+            'nro_documento': request.form['nro_documento'],
+            'direccion': request.form['direccion'],
+            'telefono': request.form['telefono'],
+            'email': request.form['email'],
+            'usuario': request.form['usuario'],          
+            'apellido_paterno': request.form['apellido_paterno'],
+            'apellido_materno': request.form['apellido_materno'],
+            'contraseña': request.form['contraseña']     
+        }
+
+        try:
+            crear_cliente(data)
+            return redirect(url_for('index'))
+        except Exception as e:
+            return f"Error al registrar el cliente: {str(e)}", 500
+
+    return render_template('registrar.html')
+
+
+    
+@app.route('/clientes/login', methods=['POST'])
+def login_cliente():
+    data = request.json
+    print("Datos recibidos en login:", data)
+    usuario = data.get('usuario')
+    contraseña = data.get('contraseña')
+
+    conexion = obtener_conexion()
+    cursor = conexion.cursor(dictionary=True)
+    sql = "SELECT * FROM clientes WHERE usuario = %s AND contraseña = %s"
+    cursor.execute(sql, (usuario, contraseña))
+    cliente = cursor.fetchone()
+    cursor.close()
+    conexion.close()
+
+    print("Cliente encontrado:", cliente)
+
+    if cliente:
+        return jsonify(cliente), 200
+    else:
+        return jsonify({"mensaje": "Credenciales inválidas"}), 401
 
 #============cliente============#
 @app.route('/clientes', methods=['POST'])
@@ -569,6 +631,68 @@ def eliminar_pedido(id):
     return jsonify({"mensaje": "Pedido eliminado correctamente"})
 
 
+
+
+
+
+@app.route('/pedido/redes_sociales', methods=['POST'])
+def registrar_pedido_redes():
+    data = request.get_json()
+
+    id_cliente = data.get('cliente', {}).get('id_cliente')
+    if not id_cliente:
+        return jsonify({"error": "Falta id_cliente"}), 400
+
+    productos = data.get('productos')
+    if not productos or len(productos) == 0:
+        return jsonify({"error": "Debe enviar al menos un producto"}), 400
+
+    conn = obtener_conexion()
+    cursor = conn.cursor()
+
+    try:
+        fecha_pedido = date.today()
+        estado = 'registrado'
+        cursor.execute(
+            "INSERT INTO pedidos (id_cliente, fecha_pedido, estado) VALUES (%s, %s, %s)",
+            (id_cliente, fecha_pedido, estado)
+        )
+        id_pedido = cursor.lastrowid
+
+        for item in productos:
+            id_producto = item.get('id_producto')
+            cantidad = item.get('cantidad')
+            if not id_producto or not cantidad:
+                conn.rollback()
+                return jsonify({"error": "Producto sin id o cantidad"}), 400
+
+            cursor.execute("SELECT precio_unitario FROM productos WHERE id_producto = %s", (id_producto,))
+            producto_db = cursor.fetchone()
+            if not producto_db:
+                conn.rollback()
+                return jsonify({"error": f"Producto con id {id_producto} no existe"}), 400
+
+            precio_unitario = producto_db[0]
+
+            cursor.execute(
+                "INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad, precio_unitario) VALUES (%s, %s, %s, %s)",
+                (id_pedido, id_producto, cantidad, precio_unitario)
+            )
+
+        conn.commit()
+    except Exception as e:
+        conn.rollback()
+        return jsonify({"error": str(e)}), 500
+    finally:
+        cursor.close()
+        conn.close()
+
+    return jsonify({"mensaje": "Pedido registrado desde redes sociales", "id_pedido": id_pedido})
+
+
+
+
+
 #===============productos================#
 @app.route('/productos', methods=['POST'])
 def crear_producto():
@@ -694,7 +818,6 @@ def actualizar_compra_cliente_api(id_compras):
 def eliminar_compra_cliente_api(id_compras):
     respuesta = eliminar_compra_cliente(id_compras)
     return jsonify(respuesta)
-
 
 
 

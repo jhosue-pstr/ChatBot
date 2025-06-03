@@ -12,7 +12,10 @@
       rel="stylesheet"
       href="{{ url_for('static', filename='css/catalogo.css') }}"
     />
-
+    <link
+    rel="stylesheet"
+    href="{{ url_for('static', filename='css/registro.css') }}"
+  />
     <link href="https://fonts.googleapis.com" rel="preconnect" />
     <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin />
     <link
@@ -180,14 +183,77 @@
             <li><a href="#testimonials">TESTIMONIOS</a></li>
             <li><a href="#faq">PREGUNTAS FRECUENTES</a></li>
             <li><a href="#contact">ENCUENTRANOS</a></li>
+            {% if usuario %}
+            <li class="nav-usuario">Bienvenido, {{ usuario }}</li>
+            <li>
+              <a class="cta-btn" href="{{ url_for('logout') }}"
+                >Cerrar sesión</a
+              >
+            </li>
+            {% else %}
+            <li><a href="{{ url_for('registrar') }}">Registrarse</a></li>
+            {% endif %}
           </ul>
+
           <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
         </nav>
 
-        <a class="cta-btn" href="#appointment">CONTACTANOS</a>
+        {% if not usuario %}
+        <a
+          class="cta-btn"
+          href="#"
+          onclick="document.getElementById('modal-login').style.display='block'"
+        >
+          Iniciar sesión
+        </a>
+        {% endif %}
+        <div
+          id="modal-login"
+          style="
+            display: none;
+            position: fixed;
+            top: 20%;
+            left: 30%;
+            background: #fff;
+            padding: 20px;
+            border: 1px solid #ccc;
+          "
+        >
+          <form method="POST" action="{{ url_for('login') }}">
+            <label>Usuario:</label>
+            <input type="text" name="username" required />
+            <br />
+            <label>Contraseña:</label>
+            <input type="password" name="password" required />
+            <br />
+            <button type="submit">Iniciar sesión</button>
+            <button
+              type="button"
+              onclick="document.getElementById('modal-login').style.display='none'"
+            >
+              Cancelar
+            </button>
+            {% if not usuario %}
+            <a href="{{ url_for('login_google') }}"
+              >Iniciar sesión con Google</a
+            >
+            {% else %}
+            <p>Bienvenido, {{ usuario }}</p>
+            <a href="{{ url_for('logout') }}">Cerrar sesión</a>
+            {% endif %}
+          </form>
+        </div>
       </div>
     </header>
 
+
+
+
+
+
+
+
+    
     <main>{% block contenido %}{% endblock %}</main>
 
     <footer id="footer" class="footer light-background">
