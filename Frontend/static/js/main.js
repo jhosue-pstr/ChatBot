@@ -62,6 +62,59 @@
   });
 
   /**
+   * FAQ Pop-up
+   */
+  document.querySelectorAll('.faq-item h3').forEach((faqItem) => {
+    faqItem.addEventListener('click', () => {
+      // Obtener el texto de la pregunta
+      const questionText = faqItem.innerText;
+
+      // Variables para la respuesta y la imagen
+      let answerText = "";
+      let imgUrl = "";
+
+      // Aquí agregamos las respuestas personalizadas y las imágenes
+      switch (questionText) {
+        case "¿Qué tipo de maquinaria textil importan y ofrecen?":
+          answerText = "Ofrecemos maquinaria textil para la fabricación de prendas de vestir, maquinaria de estampado, bordado y confección.";
+          imgUrl = "path_to_image_1.jpg"; // Cambia con el enlace de tu imagen
+          break;
+        case "¿Cómo apoyan la revalorización de las artesanías locales?":
+          answerText = "Apoyamos el diseño y comercialización de artesanías locales, combinando tradición con tecnología para mercados internacionales.";
+          imgUrl = "path_to_image_2.jpg"; // Cambia con el enlace de tu imagen
+          break;
+        case "¿Cuáles son los principales mercados internacionales a los que exportan?":
+          answerText = "Exportamos principalmente a América del Norte y Europa, con énfasis en los mercados que buscan productos de calidad y diseño único.";
+          imgUrl = "path_to_image_3.jpg"; // Cambia con el enlace de tu imagen
+          break;
+        case "¿Ofrecen asesoría técnica para la implementación de maquinaria?":
+          answerText = "Sí, ofrecemos asesoría completa, desde la instalación hasta el mantenimiento de la maquinaria que proveemos.";
+          imgUrl = "path_to_image_4.jpg"; // Cambia con el enlace de tu imagen
+          break;
+        case "¿Qué certificaciones o garantías tienen los productos y maquinaria que comercializan?":
+          answerText = "Nuestros productos cuentan con certificaciones internacionales y ofrecemos garantía de fábrica para todas nuestras maquinarias.";
+          imgUrl = "path_to_image_5.jpg"; // Cambia con el enlace de tu imagen
+          break;
+        case "¿Cómo puedo iniciar un proceso de exportación con Infotel Business?":
+          answerText = "Puedes contactar a nuestro equipo de ventas para que te asesoren en el proceso de exportación, desde la selección del producto hasta la entrega.";
+          imgUrl = "path_to_image_6.jpg"; // Cambia con el enlace de tu imagen
+          break;
+      }
+
+      // Mostrar el popup con la pregunta y la respuesta
+      document.getElementById('faq-popup-question').innerText = questionText;
+      document.getElementById('faq-popup-answer').innerText = answerText;
+      document.getElementById('faq-popup-img').src = imgUrl;
+      document.getElementById('faq-popup').style.display = 'block';  // Mostrar el popup
+    });
+  });
+
+  // Función para cerrar el popup
+  document.getElementById('close-popup-btn').addEventListener('click', function() {
+    document.getElementById('faq-popup').style.display = 'none';  // Ocultar el popup
+  });
+
+  /**
    * Apply .scrolled class to the body as the page is scrolled down
    */
   function toggleScrolled() {
@@ -270,6 +323,9 @@
   }
   window.addEventListener("load", navmenuScrollspy);
   document.addEventListener("scroll", navmenuScrollspy);
+
+
+
 
   ///////////////////////////////////
 
@@ -585,7 +641,7 @@ async function getResponse(message) {
       method: "POST",
       headers: {
         Authorization:
-          "Bearer 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",
+          "Bearer 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",
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
