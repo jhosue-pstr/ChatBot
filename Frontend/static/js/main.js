@@ -308,7 +308,7 @@
 
   
   // Constantes del chatbot
-// Constantes del chatbot
+
 const input = document.getElementById("chat-input");
 const sendBtn = document.getElementById("chat-send");
 const messages = document.getElementById("chat-messages");
@@ -403,7 +403,7 @@ async function getResponse(message) {
       method: "POST",
       headers: {
         Authorization:
-          "Bearer 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",
+          "Bearer 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",
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
@@ -439,6 +439,7 @@ sendBtn.addEventListener("click", async () => {
 input.addEventListener("keydown", (e) => {
   if (e.key === "Enter") sendBtn.click();
 });
+
 
 
 })();
