@@ -53,44 +53,122 @@
 
 
 
-    <section id="featured-services" class="featured-services section py-5">
-        <div class="container">
-          <h3 class="mb-4 text-center">Catálogo de Productos</h3>
-          <a href="{{ url_for('catalogo') }}" class="btn btn-primary">Ver Catálogo</a>
-          <div id="carouselProductos" class="carousel slide" data-bs-ride="carousel">
+<section id="featured-services" class="featured-services section py-5">
+    <div class="container">
+        <h3 class="mb-4 text-center">Catálogo de Productos</h3>
+        <a href="{{ url_for('catalogo') }}" class="btn btn-primary">Ver Catálogo</a>
+        <div id="carouselProductos" class="carousel slide" data-bs-ride="carousel">
             <div class="carousel-inner" id="carousel-inner">
             </div>
-      
+
             <!-- Controles -->
             <button class="carousel-control-prev" type="button" data-bs-target="#carouselProductos" data-bs-slide="prev">
-              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
             </button>
             <button class="carousel-control-next" type="button" data-bs-target="#carouselProductos" data-bs-slide="next">
-              <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
             </button>
-          </div>
         </div>
-      </section>
-      
-      <!-- Modal de Detalles -->
-      <div class="modal fade" id="productModal" tabindex="-1" aria-labelledby="productModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered">
-          <div class="modal-content rounded-4">
+    </div>
+</section>
+
+<!-- ✅ Modal de Detalles del Producto -->
+<div class="modal fade" id="productModal" tabindex="-1" aria-labelledby="productModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content rounded-4">
             <div class="modal-header">
-              <h5 class="modal-title" id="producto-nombre-modal">Detalles del Producto</h5>
-              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+                <h5 class="modal-title" id="producto-nombre-modal">Detalles del Producto</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
             </div>
             <div class="modal-body text-center">
-              <img id="producto-img-modal" src="" class="img-fluid rounded mb-3" alt="Producto" style="max-height: 300px;">
-              <p><strong>Material:</strong> <span id="producto-material"></span></p>
-              <p><strong>Color:</strong> <span id="producto-color"></span></p>
-              <p><strong>Stock:</strong> <span id="producto-stock"></span></p>
-              <p><strong>Precio:</strong> <span id="producto-precio-modal"></span></p>
+                <img id="producto-img-modal" src="" class="img-fluid rounded mb-3" alt="Producto" style="max-height: 300px;">
+                <p><strong>Material:</strong> <span id="producto-material"></span></p>
+                <p><strong>Color:</strong> <span id="producto-color"></span></p>
+                <p><strong>Stock:</strong> <span id="producto-stock"></span></p>
+                <p><strong>Precio:</strong> <span id="producto-precio-modal"></span></p>
             </div>
-          </div>
         </div>
-      </div>
-      
+    </div>
+</div>
+
+      <script>
+document.addEventListener("DOMContentLoaded", function () {
+    cargarCarruselProductos();
+});
+
+// ✅ Función para cargar productos en el carrusel
+async function cargarCarruselProductos() {
+    try {
+        const response = await fetch('http://127.0.0.1:5000/catalogo');
+        const productos = await response.json();
+        console.log("🎡 Productos para el carrusel:", productos);
+
+        const carruselContenedor = document.getElementById("carousel-inner");
+        carruselContenedor.innerHTML = "";
+
+        if (!productos || productos.length === 0) {
+            carruselContenedor.innerHTML = `<p class="text-center text-danger">No hay productos disponibles.</p>`;
+            return;
+        }
+
+        productos.slice(0, 5).forEach((producto, index) => {
+            const imagenProducto = (Array.isArray(producto.imagenes) && producto.imagenes.length > 0) 
+                ? producto.imagenes[0].replace("assets/img/catalogo/", "static/img/catalogo/")
+                : "/static/img/default.png";  
+
+            carruselContenedor.innerHTML += `
+                <div class="carousel-item ${index === 0 ? 'active' : ''}">
+                    <img src="${imagenProducto}" class="d-block w-100 rounded shadow" alt="${producto.nombre}">
+                    <div class="carousel-caption bg-dark text-white p-2 rounded">
+                        <h5>${producto.nombre}</h5>
+                        <p>PEN ${producto.precio}</p>
+                        <button class="btn btn-primary ver-mas-btn" data-id="${producto.id_catalogo}">Ver más</button>
+                    </div>
+                </div>
+            `;
+        });
+
+        agregarEventosCarrusel();
+    } catch (error) {
+        console.error("❌ Error al cargar productos en el carrusel:", error);
+    }
+}
+
+// ✅ Función para abrir el modal cuando se haga clic en "Ver más"
+function agregarEventosCarrusel() {
+    document.querySelectorAll(".ver-mas-btn").forEach(button => {
+        button.addEventListener("click", function () {
+            const productoId = this.getAttribute("data-id");
+            mostrarDetallesProducto(productoId);
+        });
+    });
+}
+
+// ✅ Función para mostrar detalles en el modal
+function mostrarDetallesProducto(productoId) {
+    fetch(`http://127.0.0.1:5000/catalogo/${productoId}`)
+        .then(response => response.json())
+        .then(producto => {
+            console.log("📦 Detalles del producto:", producto);
+
+            document.getElementById("producto-nombre-modal").innerText = producto.nombre;
+            document.getElementById("producto-img-modal").src = 
+                (Array.isArray(producto.imagenes) && producto.imagenes.length > 0) 
+                ? producto.imagenes[0].replace("assets/img/catalogo/", "static/img/catalogo/")
+                : "/static/img/default.png";
+
+            document.getElementById("producto-material").innerText = producto.material || "No especificado";
+            document.getElementById("producto-stock").innerText = producto.stock ? `${producto.stock} unidades` : "Stock no disponible";
+            document.getElementById("producto-color").innerText = producto.color || "No especificado";
+            document.getElementById("producto-precio-modal").innerText = `PEN ${producto.precio || "No definido"}`;
+
+            const modal = new bootstrap.Modal(document.getElementById("productModal"));
+            modal.show();
+        })
+        .catch(error => console.error("❌ Error al obtener detalles del producto:", error));
+}
+</script>
+
       <!-- Bootstrap JS + Catálogo JS -->
       <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
       <script src="{{ url_for('static', filename='js/catalogo.js') }}"></script>

@@ -62,11 +62,13 @@ def obtener_catalogo(id_catalogo):
     catalogo = cursor.fetchone()
 
     if catalogo:
-        catalogo['imagenes'] = catalogo['imagenes'].split(',') if catalogo['imagenes'] else []
+        # ✅ Corregir el problema de `imagenes`
+        catalogo['imagenes'] = catalogo['imagenes'].split(',') if catalogo['imagenes'] and catalogo['imagenes'] != "None" else []
 
     cursor.close()
     conexion.close()
     return catalogo
+
 
 
 def actualizar_catalogo(id_catalogo, nombre, descripcion, talla, color, material, precio, stock, id_tipo, id_categoria, imagen_url):

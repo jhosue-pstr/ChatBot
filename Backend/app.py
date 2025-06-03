@@ -1,5 +1,6 @@
 from flask import Flask, request, jsonify
 from flask_cors import CORS
+from flask import send_from_directory
 from datetime import datetime
 from datetime import date  
 import requests
@@ -26,6 +27,9 @@ import ventas
 import mysql.connector
 
 
+from flask import Flask, send_from_directory
+
+app = Flask(__name__, static_folder="static")
 
 
 
@@ -214,6 +218,11 @@ def obtener_imagenes(id_catalogo):
     resultado = imagenes.obtener_imagenes(id_catalogo)  # ✅ Se usa la función en `imagenes.py`
     return jsonify(resultado)
 
+
+
+@app.route('/imagenes/<path:nombre_imagen>')
+def servir_imagen(nombre_imagen):
+    return send_from_directory('static/img/catalogo', nombre_imagen)
 
 @app.route('/catalogo/imagenes/<int:id_imagen>', methods=['DELETE'])
 def eliminar_imagen(id_imagen):
