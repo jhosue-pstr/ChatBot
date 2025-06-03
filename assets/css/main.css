@@ -1,12 +1,13 @@
-
 :root {
-  --default-font: "Roboto",  system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
-  --heading-font: "Raleway",  sans-serif;
-  --nav-font: "Poppins",  sans-serif;
+  --default-font: "Roboto", system-ui, -apple-system, "Segoe UI", Roboto,
+    "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif,
+    "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  --heading-font: "Raleway", sans-serif;
+  --nav-font: "Poppins", sans-serif;
 }
 
 /* Global Colors - The following color variables are used throughout the website. Updating them here will change the color scheme of the entire website */
-:root { 
+:root {
   --background-color: #ffffff; /* Background color for the entire website, including individual sections */
   --default-color: #444444; /* Default color used for the majority of the ontent across the entire website */
   --heading-color: #555555; /* Color for headings, subheadings and title throughout the website */
@@ -17,7 +18,7 @@
 
 /* Nav Menu Colors - The following color variables are used specifically for the navigation menu. They are separate from the global colors to allow for more customization options */
 :root {
-  --nav-color: #444444;  /* The default color of the main navmenu links */
+  --nav-color: #444444; /* The default color of the main navmenu links */
   --nav-hover-color: #3fbbc0; /* Applied to main navmenu links when they are hovered over or active */
   --nav-mobile-background-color: #ffffff; /* Used as the background color for mobile navigation menu */
   --nav-dropdown-background-color: #ffffff; /* Used as the background color for dropdown items that appear when hovering over primary navigation items */
@@ -41,7 +42,11 @@
 }
 
 .accent-background {
-  --background-color: rgb(74, 102, 172); /* Esto cambiará el fondo a tu color preferido */
+  --background-color: rgb(
+    74,
+    102,
+    172
+  ); /* Esto cambiará el fondo a tu color preferido */
   --default-color: #ffffff;
   --heading-color: #ffffff;
   --surface-color: #65c9cd;
@@ -87,7 +92,10 @@ h6 {
 .pulsating-play-btn {
   width: 94px;
   height: 94px;
-  background: radial-gradient(var(--accent-color) 50%, color-mix(in srgb, var(--accent-color), transparent 75%) 52%);
+  background: radial-gradient(
+    var(--accent-color) 50%,
+    color-mix(in srgb, var(--accent-color), transparent 75%) 52%
+  );
   border-radius: 50%;
   display: block;
   position: relative;
@@ -225,7 +233,7 @@ h6 {
 }
 
 .header .topbar {
-  background-color: rgb(74, 102, 172);  /* Color de fondo */
+  background-color: rgb(74, 102, 172); /* Color de fondo */
   color: var(--contrast-color);
   height: 40px;
   padding: 0;
@@ -263,7 +271,6 @@ h6 {
   border-radius: 4px;
   transition: 0.3s;
 }
-
 
 .header .cta-btn:hover,
 .header .cta-btn:focus:hover {
@@ -319,7 +326,7 @@ h6 {
     padding-right: 0;
   }
 
-  .navmenu li:hover>a,
+  .navmenu li:hover > a,
   .navmenu .active,
   .navmenu .active:focus {
     color: var(--nav-hover-color);
@@ -358,11 +365,11 @@ h6 {
 
   .navmenu .dropdown ul a:hover,
   .navmenu .dropdown ul .active:hover,
-  .navmenu .dropdown ul li:hover>a {
+  .navmenu .dropdown ul li:hover > a {
     color: var(--nav-dropdown-hover-color);
   }
 
-  .navmenu .dropdown:hover>ul {
+  .navmenu .dropdown:hover > ul {
     opacity: 1;
     top: 100%;
     visibility: visible;
@@ -374,7 +381,7 @@ h6 {
     visibility: hidden;
   }
 
-  .navmenu .dropdown .dropdown:hover>ul {
+  .navmenu .dropdown .dropdown:hover > ul {
     opacity: 1;
     top: 0;
     left: -100%;
@@ -477,7 +484,7 @@ h6 {
     background-color: rgba(33, 37, 41, 0.1);
   }
 
-  .navmenu .dropdown>.dropdown-active {
+  .navmenu .dropdown > .dropdown-active {
     display: block;
     background-color: rgba(33, 37, 41, 0.03);
   }
@@ -504,7 +511,7 @@ h6 {
     transition: 0.3s;
   }
 
-  .mobile-nav-active .navmenu>ul {
+  .mobile-nav-active .navmenu > ul {
     display: block;
   }
 }
@@ -614,7 +621,8 @@ h6 {
 
 .footer .copyright {
   padding: 25px 0;
-  border-top: 1px solid color-mix(in srgb, var(--default-color), transparent 90%);
+  border-top: 1px solid
+    color-mix(in srgb, var(--default-color), transparent 90%);
 }
 
 .footer .copyright p {
@@ -714,7 +722,8 @@ h6 {
 
 .page-title .heading {
   padding: 80px 0;
-  border-top: 1px solid color-mix(in srgb, var(--default-color), transparent 90%);
+  border-top: 1px solid
+    color-mix(in srgb, var(--default-color), transparent 90%);
 }
 
 .page-title .heading h1 {
@@ -737,11 +746,11 @@ h6 {
   font-weight: 400;
 }
 
-.page-title nav ol li+li {
+.page-title nav ol li + li {
   padding-left: 10px;
 }
 
-.page-title nav ol li+li::before {
+.page-title nav ol li + li::before {
   content: "/";
   display: inline-block;
   padding-right: 10px;
@@ -761,7 +770,6 @@ section,
 }
 
 @media (max-width: 1199px) {
-
   section,
   .section {
     scroll-margin-top: 100px;
@@ -817,8 +825,7 @@ section,
   position: relative;
 }
 
-@media (max-height: 500px),
-(max-width: 580px) {
+@media (max-height: 500px), (max-width: 580px) {
   .hero .carousel {
     min-height: 100vh;
   }
@@ -1031,8 +1038,6 @@ section,
   border-radius: 0px;
 }
 
-
-
 /*--------------------------------------------------------------
 # Call To Action Section
 --------------------------------------------------------------*/
@@ -1042,7 +1047,6 @@ section,
   clip-path: inset(0);
   background-color: #000000; /* Fondo negro */
 }
-
 
 .call-to-action .container {
   position: relative;
@@ -1332,7 +1336,7 @@ section,
   padding: 10px 12px;
 }
 
-.appointment .php-email-form button[type=submit] {
+.appointment .php-email-form button[type="submit"] {
   background: var(--accent-color);
   border: 0;
   padding: 10px 35px;
@@ -1341,7 +1345,7 @@ section,
   border-radius: 4px;
 }
 
-.appointment .php-email-form button[type=submit]:hover {
+.appointment .php-email-form button[type="submit"]:hover {
   background: color-mix(in srgb, var(--accent-color) 90%, white 15%);
 }
 
@@ -1362,7 +1366,8 @@ section,
   transition: 0.3s;
   color: var(--default-color);
   border-radius: 0;
-  border-right: 2px solid color-mix(in srgb, var(--default-color), transparent 90%);
+  border-right: 2px solid
+    color-mix(in srgb, var(--default-color), transparent 90%);
   font-weight: 600;
   font-size: 15px;
 }
@@ -1852,8 +1857,8 @@ section,
   }
 }
 
-.contact .php-email-form input[type=text],
-.contact .php-email-form input[type=email],
+.contact .php-email-form input[type="text"],
+.contact .php-email-form input[type="email"],
 .contact .php-email-form textarea {
   font-size: 14px;
   padding: 10px 15px;
@@ -1864,19 +1869,19 @@ section,
   border-color: color-mix(in srgb, var(--default-color), transparent 80%);
 }
 
-.contact .php-email-form input[type=text]:focus,
-.contact .php-email-form input[type=email]:focus,
+.contact .php-email-form input[type="text"]:focus,
+.contact .php-email-form input[type="email"]:focus,
 .contact .php-email-form textarea:focus {
   border-color: var(--accent-color);
 }
 
-.contact .php-email-form input[type=text]::placeholder,
-.contact .php-email-form input[type=email]::placeholder,
+.contact .php-email-form input[type="text"]::placeholder,
+.contact .php-email-form input[type="email"]::placeholder,
 .contact .php-email-form textarea::placeholder {
   color: color-mix(in srgb, var(--default-color), transparent 70%);
 }
 
-.contact .php-email-form button[type=submit] {
+.contact .php-email-form button[type="submit"] {
   color: var(--contrast-color);
   background: var(--accent-color);
   border: 0;
@@ -1885,7 +1890,7 @@ section,
   border-radius: 4px;
 }
 
-.contact .php-email-form button[type=submit]:hover {
+.contact .php-email-form button[type="submit"]:hover {
   background: color-mix(in srgb, var(--accent-color), transparent 20%);
 }
 
@@ -1903,7 +1908,8 @@ section,
   display: block;
   line-height: 1;
   padding: 8px 0 8px 15px;
-  border-left: 3px solid color-mix(in srgb, var(--default-color), transparent 70%);
+  border-left: 3px solid
+    color-mix(in srgb, var(--default-color), transparent 70%);
   margin: 20px 0;
   color: color-mix(in srgb, var(--default-color), transparent 20%);
   transition: 0.3s;
@@ -1965,41 +1971,40 @@ section,
   padding: 18px; /* Aumentamos el padding para hacerlo más grande */
   cursor: pointer;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  width: 60px;  /* Aumentamos el tamaño del botón */
+  width: 60px; /* Aumentamos el tamaño del botón */
   height: 60px; /* Aumentamos el tamaño del botón */
   display: flex;
   justify-content: center;
-  align-items: center;  /* Centrar el ícono dentro de la bolita */
+  align-items: center; /* Centrar el ícono dentro de la bolita */
 }
 
 #chatbot-btn i {
   font-size: 28px; /* Hacer el ícono un poco más grande */
 }
 
-  /* Estilo para la ventana emergente del chatbot */
-  #chatbot-window {
-    position: fixed;
-    bottom: 80px;
-    left: 20px; /* Se mantiene a la izquierda para alinearlo con el botón */
-    width: 400px;
-    height: 600px;
-    background-color: white;
-    border-radius: 8px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-    display: none;
-    z-index: 1000;
-  }
+/* Estilo para la ventana emergente del chatbot */
+#chatbot-window {
+  position: fixed;
+  bottom: 80px;
+  left: 20px; /* Se mantiene a la izquierda para alinearlo con el botón */
+  width: 400px;
+  height: 600px;
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  display: none;
+  z-index: 1000;
+}
 
-  #chatbot-window iframe {
-    width: 100%;
-    height: 100%;
-    border: none;
-    border-radius: 8px;
-  }
+#chatbot-window iframe {
+  width: 100%;
+  height: 100%;
+  border: none;
+  border-radius: 8px;
+}
 /*--------------------------------------------------------------
 # Starter Section Section
 --------------------------------------------------------------*/
-
 
 #chat-container {
   width: 400px;
@@ -2008,13 +2013,13 @@ section,
   border-radius: 12px;
   display: flex;
   flex-direction: column;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
   background-color: #fff;
 }
 
 #chat-header {
-  background-color: rgb(74, 102, 172);  /* Color de fondo del encabezado */
+  background-color: rgb(74, 102, 172); /* Color de fondo del encabezado */
   color: white;
   padding: 16px;
   font-weight: 700;
@@ -2026,14 +2031,13 @@ section,
 }
 
 #chat-messages {
-  flex: 1;  /* Esta propiedad asegura que ocupe el espacio disponible */
+  flex: 1; /* Esta propiedad asegura que ocupe el espacio disponible */
   padding: 15px;
   overflow-y: auto;
   background: #f7f9fc;
   display: flex;
   flex-direction: column;
   gap: 12px;
-  
 }
 
 .message {
@@ -2065,12 +2069,12 @@ section,
   border-radius: 16px;
   font-size: 15px;
   line-height: 1.3;
-  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
   max-width: 100%;
 }
 
 .message.user .text {
-  background-color: rgb(74, 102, 172);  /* Fondo del mensaje del usuario */
+  background-color: rgb(74, 102, 172); /* Fondo del mensaje del usuario */
   color: white;
   border-bottom-right-radius: 4px;
 }
@@ -2100,13 +2104,16 @@ section,
 }
 
 #chat-input:focus {
-  border-color: rgb(74, 102, 172);  /* Color de borde cuando el input está en foco */
+  border-color: rgb(
+    74,
+    102,
+    172
+  ); /* Color de borde cuando el input está en foco */
   box-shadow: 0 0 5px rgb(74, 102, 172);
 }
 
-
 #chat-send {
-  background-color: rgb(74, 102, 172);  /* Fondo del botón de enviar */
+  background-color: rgb(74, 102, 172); /* Fondo del botón de enviar */
   color: white;
   border: none;
   padding: 0 16px;
@@ -2118,20 +2125,12 @@ section,
 }
 
 #chat-send:hover {
-  background-color: rgb(74, 102, 172);  /* Cambio de color al hacer hover sobre el botón */
+  background-color: rgb(
+    74,
+    102,
+    172
+  ); /* Cambio de color al hacer hover sobre el botón */
 }
-
-
-
-
-
-
-
-
-
-
-
-
 
 #chatbot-header {
   display: flex;
@@ -2148,24 +2147,21 @@ section,
 }
 
 #chatbot-close {
-  background-color: black;  /* Fondo negro */
+  background-color: black; /* Fondo negro */
   border: none;
-  color: rgb(255, 255, 255);  /* La X será verde */
-  font-size: 13px;  /* Hacer la X más pequeña */
-  padding: 6px 12px;  /* Hacer el botón más ancho, agregando más espacio */
+  color: rgb(255, 255, 255); /* La X será verde */
+  font-size: 13px; /* Hacer la X más pequeña */
+  padding: 6px 12px; /* Hacer el botón más ancho, agregando más espacio */
   cursor: pointer;
   border-radius: 50%; /* Hacer el fondo redondeado */
-  position: absolute;  /* Posicionarlo de manera absoluta */
-  right: 3px;  /* Moverlo más a la derecha */
-  top: 5px;  /* Moverlo más arriba */
+  position: absolute; /* Posicionarlo de manera absoluta */
+  right: 3px; /* Moverlo más a la derecha */
+  top: 5px; /* Moverlo más arriba */
 }
 
 #chatbot-close:hover {
-  background-color: #333;  /* Cambia el fondo cuando pasas el mouse */
+  background-color: #333; /* Cambia el fondo cuando pasas el mouse */
 }
-
-
-
 
 .starter-section {
   /* Add your styles here */

@@ -148,7 +148,7 @@
 
   window.addEventListener("load", toggleScrollTop);
   document.addEventListener("scroll", toggleScrollTop);
-  chat - input;
+
   /**
    * Animation on scroll function and init
    */
@@ -386,7 +386,7 @@
       }
 
       const data = await res.json();
-      return data.choices[0].message.content;
+      return data.choices[0].message.content; // Ajusta según la estructura real de la respuesta
     } catch (error) {
       console.error(error);
       return "Lo siento, no puedo responder ahora. Por favor intenta más tarde.";
