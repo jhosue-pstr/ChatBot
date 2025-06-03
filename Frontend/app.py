@@ -4,7 +4,7 @@ app = Flask(__name__)
 
 @app.route('/')
 def index():
-    return render_template('catalogo.html')  
+    return render_template('principal.html')  
 
 if __name__ == '__main__':
     app.run(debug=True, port=5001)
