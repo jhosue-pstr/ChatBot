@@ -129,13 +129,13 @@
     <!-- About Section -->
     <section id="about" class="about section">
 
-      <!-- Section Title -->
+     
       <div class="container section-title" data-aos="fade-up">
         <h2>Venta Nacional/Internacional<br></h2>
         <p>Descubre un mundo de calidad y creatividad, donde la pasión por la excelencia se une a la innovación en cada
           detalle. Te invitamos a vivir una experiencia excepcional al explorar soluciones integrales pensadas para
           inspirar tu estilo de vida.</p>
-      </div><!-- End Section Title -->
+      </div>
 
       <div class="container">
 
@@ -188,97 +188,93 @@
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-      <section id="appointment" class="appointment section light-background">
-
-        <!-- Título de la sección -->
+      <form action="/citas" method="post" role="form" class="php-email-form">
         <div class="container section-title" data-aos="fade-up">
           <h2>Solicita una Cita</h2>
-          <p>Por favor completa el siguiente formulario para agendar una reunión con nuestro equipo. Te contactaremos
-            para confirmar tu cita y ayudarte con tus requerimientos.</p>
-        </div><!-- End Section Title -->
-
+          <p>¿Quieres trabajar con nosotros?</p>
+          <p>Por favor completa el siguiente formulario para agendar una reunión con nuestro equipo.</p>
+        </div>
+      
         <div class="container" data-aos="fade-up" data-aos-delay="100">
-
-          <form action="forms/appointment.php" method="post" role="form" class="php-email-form">
-            <div class="row">
-              <div class="col-md-4 form-group">
-                <input type="text" name="name" class="form-control" id="name" placeholder="Tu Nombre" required>
-              </div>
-              <div class="col-md-4 form-group mt-3 mt-md-0">
-                <input type="email" class="form-control" name="email" id="email" placeholder="Tu Correo Electrónico"
-                  required>
-              </div>
-              <div class="col-md-4 form-group mt-3 mt-md-0">
-                <input type="tel" class="form-control" name="phone" id="phone" placeholder="Tu Teléfono" required>
-              </div>
+          <div class="row">
+            <div class="col-md-4 form-group">
+              <input type="text" name="name" class="form-control" id="name" placeholder="Tu Nombre" required>
             </div>
-            <div class="row">
-              <div class="col-md-4 form-group mt-3">
-                <input type="datetime-local" name="date" class="form-control datepicker" id="date" required>
-              </div>
-              <div class="col-md-4 form-group mt-3">
-                <select name="department" id="department" class="form-select" required>
-                  <option value="">Selecciona el servicio</option>
-                  <option value="Soporte Técnico">Soporte Técnico</option>
-                  <option value="Exportaciones">Exportaciones</option>
-                  <option value="Ventas">Ventas</option>
-                </select>
-              </div>
-              <div class="col-md-4 form-group mt-3">
-                <select name="contact_person" id="contact_person" class="form-select" required>
-                  <option value="">Selecciona persona de contacto</option>
-                  <option value="Juan Pérez">Juan Pérez</option>
-                  <option value="María López">María López</option>
-                  <option value="Carlos Ramírez">Carlos Ramírez</option>
-                </select>
-              </div>
+            <div class="col-md-4 form-group mt-3 mt-md-0">
+              <input type="email" class="form-control" name="email" id="email" placeholder="Tu Correo Electrónico" required>
             </div>
-
-            <div class="form-group mt-3">
-              <textarea class="form-control" name="message" rows="5" placeholder="Mensaje (Opcional)"></textarea>
+            <div class="col-md-4 form-group mt-3 mt-md-0">
+              <input type="tel" class="form-control" name="phone" id="phone" placeholder="Tu Teléfono" required>
             </div>
-
-            <div class="mt-3">
-              <div class="loading">Cargando...</div>
-              <div class="error-message"></div>
-              <div class="sent-message">Tu solicitud de cita ha sido enviada con éxito. ¡Gracias!</div>
-              <div class="text-center"><button type="submit">Solicitar Cita</button></div>
+            <div class="col-md-4 form-group mt-3 mt-md-0">
+              <input type="tel" class="form-control" name="phone_secondary" id="phone_secondary" placeholder="Teléfono Secundario (Opcional)">
             </div>
-          </form>
+            
+          </div>
+          <div class="row">
+            <div class="col-md-4 form-group mt-3">
+              <input type="date" name="date" class="form-control" id="date" required>
+            </div>
+            
+            <div class="col-md-4 form-group mt-3">
+              <select name="department" id="department" class="form-select" required>
+                <option value="">Selecciona el servicio</option>
+                <option value="Soporte Técnico">Soporte Técnico</option>
+                <option value="Exportaciones">Exportaciones</option>
+                <option value="Ventas">Ventas</option>
+              </select>
+            </div>
+            <div class="col-md-4 form-group mt-3">
+              <select name="contact_person" id="contact_person" class="form-select" required>
+                <option value="">Selecciona persona de contacto</option>
+                <option value="Juan Pérez">Juan Pérez</option>
+                <option value="María López">María López</option>
+                <option value="Carlos Ramírez">Carlos Ramírez</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-group mt-3">
+            <textarea class="form-control" name="message" rows="5" placeholder="Mensaje (Opcional)"></textarea>
+          </div>
+      
+          <div class="mt-3">
+            <div class="loading">Cargando...</div>
+            <div class="error-message"></div>
+            <div class="sent-message">Tu solicitud de cita ha sido enviada con éxito. ¡Gracias!</div>
+            <div class="text-center"><button type="submit">Solicitar Cita</button></div>
+          </div>
+        </div>
+      </form>
+      
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
         </div>
 
-      </section><!-- /Appointment Section -->
+      </section>
 
 
+    </section>
 
-
-    </section><!-- /Tabs Section -->
-
-    <!-- Testimonials Section -->
     <section id="testimonials" class="testimonials section">
 
-      <!-- Section Title -->
       <div class="container section-title" data-aos="fade-up">
         <h2>Testimonios</h2>
         <p>Ultimos Clientes </p>
-      </div><!-- End Section Title -->
+      </div>
 
       <div class="container" data-aos="fade-up" data-aos-delay="100">
 
@@ -324,7 +320,7 @@
                 <h3>Saul Goodman</h3>
                 <h4>Ceo &amp; Founder</h4>
               </div>
-            </div><!-- End testimonial item -->
+            </div>
 
             <div class="swiper-slide">
               <div class="testimonial-item">
@@ -339,7 +335,7 @@
                 <h3>Sara Wilsson</h3>
                 <h4>Designer</h4>
               </div>
-            </div><!-- End testimonial item -->
+            </div>
 
             <div class="swiper-slide">
               <div class="testimonial-item">
@@ -353,7 +349,7 @@
                 <h3>Jena Karlis</h3>
                 <h4>Store Owner</h4>
               </div>
-            </div><!-- End testimonial item -->
+            </div>
 
             <div class="swiper-slide">
               <div class="testimonial-item">
@@ -367,7 +363,7 @@
                 <h3>Matt Brandon</h3>
                 <h4>Freelancer</h4>
               </div>
-            </div><!-- End testimonial item -->
+            </div>
 
             <div class="swiper-slide">
               <div class="testimonial-item">
@@ -382,7 +378,7 @@
                 <h3>John Larson</h3>
                 <h4>Entrepreneur</h4>
               </div>
-            </div><!-- End testimonial item -->
+            </div>
 
           </div>
           <div class="swiper-pagination"></div>
@@ -395,7 +391,7 @@
     <!-- Doctors Section -->
     <section id="doctors" class="doctors section light-background">
 
-      <!-- Section Title -->
+     
       <div class="container section-title text-center" data-aos="fade-up">
         <h2>GERENTE GENERAL</h2>
       </div>
@@ -425,14 +421,14 @@
 
     </section>
 
-    <!-- Faq Section -->
+
     <section id="faq" class="faq section light-background">
 
-      <!-- Section Title -->
+     
       <div class="container section-title" data-aos="fade-up">
         <h2>Preguntas Frecuentes para Infotel Business S.A.C.</h2>
         <p></p>
-      </div><!-- End Section Title -->
+      </div>
 
       <div class="container">
 
@@ -448,7 +444,7 @@
                   <p></p>
                 </div>
                 <i class="faq-toggle bi bi-chevron-right"></i>
-              </div><!-- End Faq item-->
+              </div>
 
               <div class="faq-item">
                 <h3>¿Cómo apoyan la revalorización de las artesanías locales?</h3>
@@ -456,7 +452,7 @@
                   <p></p>
                 </div>
                 <i class="faq-toggle bi bi-chevron-right"></i>
-              </div><!-- End Faq item-->
+              </div>
 
               <div class="faq-item">
                 <h3>¿Cuáles son los principales mercados internacionales a los que exportan?</h3>
@@ -464,7 +460,7 @@
                   <p></p>
                 </div>
                 <i class="faq-toggle bi bi-chevron-right"></i>
-              </div><!-- End Faq item-->
+              </div>
 
               <div class="faq-item">
                 <h3>¿Ofrecen asesoría técnica para la implementación de maquinaria?</h3>
@@ -472,7 +468,7 @@
                   <p></p>
                 </div>
                 <i class="faq-toggle bi bi-chevron-right"></i>
-              </div><!-- End Faq item-->
+              </div>
 
               <div class="faq-item">
                 <h3>¿Qué certificaciones o garantías tienen los productos y maquinaria que comercializan?</h3>
@@ -480,7 +476,7 @@
                   <p></p>
                 </div>
                 <i class="faq-toggle bi bi-chevron-right"></i>
-              </div><!-- End Faq item-->
+              </div>
 
               <div class="faq-item">
                 <h3>¿Cómo puedo iniciar un proceso de exportación con Infotel Business?</h3>
@@ -488,7 +484,7 @@
                   <p></p>
                 </div>
                 <i class="faq-toggle bi bi-chevron-right"></i>
-              </div><!-- End Faq item-->
+              </div>
 
             </div>
 
@@ -503,11 +499,11 @@
     <!-- Contact Section -->
     <section id="contact" class="contact section">
 
-      <!-- Section Title -->
+     
       <div class="container section-title" data-aos="fade-up">
         <h2>ENCUENTRANOS</h2>
         <p>PASAJE AYAVIRI Mz. Ñ Lt 18F Urb. San francisco Juliaca</p>
-      </div><!-- End Section Title -->
+      </div>
 
       <div class="mb-5" data-aos="fade-up" data-aos-delay="200">
         <iframe style="border:0; width: 100%; height: 370px;"

@@ -1,6 +1,7 @@
 from flask import Flask, render_template, request, redirect, url_for, session
 import requests
 from flask_dance.contrib.google import make_google_blueprint, google
+import os
 
 app = Flask(__name__)
 app.secret_key = 'clave_secreta'
@@ -91,6 +92,28 @@ def registrar():
 def catalogo():
     return render_template('catalogo.html')  
 
+
+@app.route('/citas', methods=['POST'])
+def enviar_cita():
+    data = {
+        "nombre": request.form['name'],
+        "correo": request.form['email'],
+        "telefono_principal": request.form['phone'],
+        "telefono_secundario": request.form.get('phone_secondary', ''),
+        "fecha_cita": request.form['date'],
+        "servicio": request.form['department'],
+        "persona_contacto": request.form['contact_person'],
+        "mensaje": request.form.get('message', '')
+    }
+
+    try:
+        response = requests.post(f'{API_CLIENTE_URL}/citas', json=data)
+        if response.status_code == 201:
+            return redirect(url_for('index'))
+        else:
+            return f"Error al agendar cita: {response.text}", 400
+    except Exception as e:
+        return f"Error de conexión con el backend: {str(e)}", 500
 
 
 if __name__ == '__main__':
