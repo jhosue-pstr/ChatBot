@@ -1,0 +1,40 @@
+#carouselProductos {
+    width: 80%;
+    margin: auto;
+}
+
+#carouselProductos .carousel-inner .row {
+    display: flex;
+    justify-content: center;
+    gap: 15px; /* ✅ Espacio entre productos */
+}
+
+#carouselProductos .carousel-item {
+    padding: 10px;
+}
+
+#carouselProductos .card {
+    width: 100%;
+    max-width: 230px; /* ✅ Tamaño reducido */
+    margin: auto;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); /* ✅ Sombra sutil */
+}
+
+#carouselProductos img {
+    max-height: 180px; /* ✅ Imágenes más compactas */
+    width: auto;
+    object-fit: contain;
+}
+
+.carousel-caption {
+    background: rgba(0, 0, 0, 0.4); /* ✅ Más transparente */
+    padding: 4px;
+    font-size: 12px; /* ✅ Texto más compacto */
+    color: white;
+    border-radius: 5px;
+}
+
+.ver-mas-btn {
+    padding: 4px 8px;
+    font-size: 12px; /* ✅ Botón más compacto */
+}

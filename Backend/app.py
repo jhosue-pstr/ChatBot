@@ -1,10 +1,12 @@
 from flask import Flask, request, jsonify
 from flask_cors import CORS
+from flask import send_from_directory
 from datetime import datetime
 from datetime import date  
 import requests
 import cliente
 import almacen
+import carrito_compra
 import catalogo
 import categorias
 import compras
@@ -18,6 +20,7 @@ import packingList
 import pedidos
 import productos
 import proveedores
+import imagenes
 import seguimientoPedidos
 import tipos
 import ventaDetalle
@@ -25,6 +28,9 @@ import ventas
 import mysql.connector
 
 
+from flask import Flask, send_from_directory
+
+app = Flask(__name__, static_folder="static")
 
 
 
@@ -152,6 +158,42 @@ def actualizar_almacen(id_almacen):
 def eliminar_almacen(id_almacen):
     almacen.eliminar_almacen(id_almacen)
     return jsonify({"mensaje": "Registro de almacén eliminado correctamente"})
+#===============carrito_compra================#
+@app.route('/carrito', methods=['POST'])
+def agregar_item():
+    data = request.json
+    respuesta, codigo = carrito_compra.agregar_item_carrito(
+        data['id_catalogo'],
+        data['cantidad_producto'],
+        data['precio_unitario']
+    )
+    return jsonify(respuesta), codigo
+
+@app.route('/carrito', methods=['GET'])
+def listar_items():
+    resultado = carrito_compra.listar_carrito()
+    return jsonify(resultado)
+
+@app.route('/carrito/<int:id_carrito>', methods=['GET'])
+def obtener_item(id_carrito):
+    resultado, codigo = carrito_compra.obtener_item_carrito(id_carrito)
+    return jsonify(resultado), codigo
+
+@app.route('/carrito/<int:id_carrito>', methods=['PUT'])
+def actualizar_item(id_carrito):
+    data = request.json
+    respuesta, codigo = carrito_compra.actualizar_item_carrito(
+        id_carrito,
+        data['id_catalogo'],
+        data['cantidad_producto'],
+        data['precio_unitario']
+    )
+    return jsonify(respuesta), codigo
+
+@app.route('/carrito/<int:id_carrito>', methods=['DELETE'])
+def eliminar_item(id_carrito):
+    respuesta, codigo = carrito_compra.eliminar_item_carrito(id_carrito)
+    return jsonify(respuesta), codigo
 #===============catalgo================#
 @app.route('/catalogo', methods=['POST'])
 def crear_catalogo():
@@ -161,34 +203,28 @@ def crear_catalogo():
 
 @app.route('/catalogo', methods=['GET'])
 def listar_catalogo():
-    resultado = catalogo.listar_catalogo()
-    return jsonify(resultado)
+    productos = catalogo.listar_catalogo()  # ✅ Ahora se usa directamente la función en `catalogo.py`
+    return jsonify(productos)
 
 @app.route('/catalogo/<int:id_catalogo>', methods=['GET'])
 def obtener_catalogo(id_catalogo):
-    catalogo_data = catalogo.obtener_catalogo(id_catalogo)
-    if catalogo_data:
-        return jsonify(catalogo_data)
-    else:
-        return jsonify({"mensaje": "Catálogo no encontrado"}), 404
-    
+    producto = catalogo.obtener_catalogo(id_catalogo)  # ✅ Se llama la función desde `catalogo.py`
+    if producto:
+        return jsonify(producto)
+    return jsonify({"mensaje": "Producto no encontrado"}), 404
+
+# Buscar catálogo por nombre
 @app.route('/catalogo/busqueda', methods=['GET'])
 def buscar_catalogo_por_nombre():
-    nombre_filtro = request.args.get('nombre')  # Obtener parámetro de consulta
+    nombre_filtro = request.args.get('nombre')
 
     if not nombre_filtro:
         return jsonify({"mensaje": "Debe proporcionar un nombre para la búsqueda"}), 400
-    
-    productos = buscar_por_nombre(nombre_filtro)  # Buscar en la base de datos
 
-    return jsonify(productos if productos else {"mensaje": "No se encontraron productos"}), 200
+    productos = catalogo.buscar_por_nombre(nombre_filtro)  # ✅ Se usa directamente la función en `catalogo.py`
 
-# Función para buscar por nombre en el módulo de base de datos
-def buscar_por_nombre(nombre):
-    query = f"SELECT * FROM catalogo WHERE nombre LIKE '%{nombre}%'"
-    cursor.execute(query)
-    resultados = cursor.fetchall()
-    return resultados
+    return jsonify(productos if productos else {"mensaje": "No se encontraron productos"})
+
 
 @app.route('/catalogo/<int:id_catalogo>', methods=['PUT'])
 def actualizar_catalogo(id_catalogo):
@@ -200,6 +236,34 @@ def actualizar_catalogo(id_catalogo):
 def eliminar_catalogo(id_catalogo):
     catalogo.eliminar_catalogo(id_catalogo)
     return jsonify({"mensaje": "Catálogo eliminado correctamente"})
+
+#=============== imágenes =================#
+@app.route('/catalogo/<int:id_catalogo>/imagenes', methods=['POST'])
+def agregar_imagen(id_catalogo):
+    data = request.json
+    imagen_url = data.get('imagen_url')
+
+    if not imagen_url:
+        return jsonify({"mensaje": "Debe proporcionar una URL de imagen"}), 400
+
+    imagenes.agregar_imagen(id_catalogo, imagen_url)  # ✅ Se usa la función en `imagenes.py`
+    return jsonify({"mensaje": "Imagen agregada correctamente"}), 201
+
+@app.route('/catalogo/<int:id_catalogo>/imagenes', methods=['GET'])
+def obtener_imagenes(id_catalogo):
+    resultado = imagenes.obtener_imagenes(id_catalogo)  # ✅ Se usa la función en `imagenes.py`
+    return jsonify(resultado)
+
+
+
+@app.route('/imagenes/<path:nombre_imagen>')
+def servir_imagen(nombre_imagen):
+    return send_from_directory('static/img/catalogo', nombre_imagen)
+
+@app.route('/catalogo/imagenes/<int:id_imagen>', methods=['DELETE'])
+def eliminar_imagen(id_imagen):
+    imagenes.eliminar_imagen(id_imagen)
+    return jsonify({"mensaje": "Imagen eliminada correctamente"})
 
 #===============categorias================#
 @app.route('/categorias', methods=['POST'])

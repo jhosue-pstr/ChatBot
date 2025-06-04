@@ -20,7 +20,8 @@
               insumos que optimizan la calidad y eficiencia de los procesos industriales.</p>
             <a href="#about" class="btn-get-started">Más Información</a>
           </div>
-        </div>
+        </div><!-- End Carousel Item -->
+
         <div class="carousel-item">
           <img src="static/img/carrusel2.jpg" alt="">
           <div class="container">
@@ -29,13 +30,13 @@
               combinando tradición, estilo y funcionalidad.</p>
             <a href="#about" class="btn-get-started">Más Información</a>
           </div>
-        </div>
+        </div><!-- End Carousel Item -->
 
         <div class="carousel-item">
           <img src="static/img/carrusel3.jpg" alt="">
           <div class="container">
             <h2>🧵 Fusión de Tecnología y Tradición Andina</h2>
-            <p>Concepto: Unimos innovación con identidad cultural. Cada producto refleja la riqueza artesanal del
+            <p>Unimos innovación con identidad cultural. Cada producto refleja la riqueza artesanal del
               altiplano, elaborada con técnicas modernas y materiales de alta calidad.</p>
             <a href="#about" class="btn-get-started">Más Información</a>
           </div>
@@ -44,6 +45,10 @@
         <a class="carousel-control-prev" href="#hero-carousel" role="button" data-bs-slide="prev">
           <span class="carousel-control-prev-icon bi bi-chevron-left" aria-hidden="true"></span>
         </a>
+        <a class="carousel-control-next" href="#hero-carousel" role="button" data-bs-slide="next">
+          <span class="carousel-control-next-icon bi bi-chevron-right" aria-hidden="true"></span>
+        </a>
+
 
 
     </section>
@@ -51,50 +56,139 @@
 
 
 
+<section id="featured-services" class="featured-services section py-5">
+    <div class="container">
+        <h3 class="mb-4 text-center">Catálogo de Productos</h3>
+        <a href="{{ url_for('catalogo') }}" class="btn btn-primary">Ver Catálogo</a>
+        <div id="carouselProductos" class="carousel slide" data-bs-ride="carousel">
+    <div class="carousel-inner" id="carousel-inner" style="width: 80%; margin: auto;">
+    </div>
 
+    <!-- Controles -->
+    <button class="carousel-control-prev" type="button" data-bs-target="#carouselProductos" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon"></span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#carouselProductos" data-bs-slide="next">
+        <span class="carousel-control-next-icon"></span>
+    </button>
+</div>
 
-    <section id="featured-services" class="featured-services section py-5">
-        <div class="container">
-          <h3 class="mb-4 text-center">Catálogo de Productos</h3>
-          <a href="{{ url_for('catalogo') }}" class="btn btn-primary">Ver Catálogo</a>
-          <div id="carouselProductos" class="carousel slide" data-bs-ride="carousel">
-            <div class="carousel-inner" id="carousel-inner">
-            </div>
-      
-            <!-- Controles -->
-            <button class="carousel-control-prev" type="button" data-bs-target="#carouselProductos" data-bs-slide="prev">
-              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-            </button>
-            <button class="carousel-control-next" type="button" data-bs-target="#carouselProductos" data-bs-slide="next">
-              <span class="carousel-control-next-icon" aria-hidden="true"></span>
-            </button>
-          </div>
-        </div>
-      </section>
-      
-      <!-- Modal de Detalles -->
-      <div class="modal fade" id="productModal" tabindex="-1" aria-labelledby="productModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered">
-          <div class="modal-content rounded-4">
+    </div>
+</section>
+
+<!-- ✅ Modal de Detalles del Producto -->
+<div class="modal fade" id="productModal" tabindex="-1" aria-labelledby="productModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content rounded-4">
             <div class="modal-header">
-              <h5 class="modal-title" id="producto-nombre-modal">Detalles del Producto</h5>
-              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+                <h5 class="modal-title" id="producto-nombre-modal">Detalles del Producto</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
             </div>
             <div class="modal-body text-center">
-              <img id="producto-img-modal" src="" class="img-fluid rounded mb-3" alt="Producto" style="max-height: 300px;">
-              <p><strong>Material:</strong> <span id="producto-material"></span></p>
-              <p><strong>Color:</strong> <span id="producto-color"></span></p>
-              <p><strong>Stock:</strong> <span id="producto-stock"></span></p>
-              <p><strong>Precio:</strong> <span id="producto-precio-modal"></span></p>
+                <img id="producto-img-modal" src="" class="img-fluid rounded mb-3" alt="Producto" style="max-height: 250px; width: auto; object-fit: contain;">
+                <p><strong>Material:</strong> <span id="producto-material"></span></p>
+                <p><strong>Color:</strong> <span id="producto-color"></span></p>
+                <p><strong>Stock:</strong> <span id="producto-stock"></span></p>
+                <p><strong>Precio:</strong> <span id="producto-precio-modal"></span></p>
             </div>
-          </div>
         </div>
-      </div>
-      
-      <!-- Bootstrap JS + Catálogo JS -->
-      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-      <script src="{{ url_for('static', filename='js/catalogo.js') }}"></script>
+    </div>
+</div>
 
+<!-- ✅ Script interno para cargar productos en el carrusel -->
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+    cargarCarruselProductos();
+});
+
+// ✅ Función para cargar productos en el carrusel
+async function cargarCarruselProductos() {
+    try {
+        const response = await fetch('http://127.0.0.1:5000/catalogo');
+        const productos = await response.json();
+        console.log("🎡 Productos para el carrusel:", productos);
+
+        const carruselContenedor = document.getElementById("carousel-inner");
+        carruselContenedor.innerHTML = "";
+
+        if (!productos || productos.length === 0) {
+            carruselContenedor.innerHTML = `<p class="text-center text-danger">No hay productos disponibles.</p>`;
+            return;
+        }
+
+        let grupoProductos = [];
+        productos.forEach((producto, index) => {
+            const imagenProducto = (Array.isArray(producto.imagenes) && producto.imagenes.length > 0) 
+                ? producto.imagenes[0].replace("assets/img/catalogo/", "static/img/catalogo/")
+                : "/static/img/default.png";  
+
+            grupoProductos.push(`
+                <div class="col-md-4">
+                    <div class="card shadow">
+                        <img src="${imagenProducto}" class="card-img-top" alt="${producto.nombre}" style="max-height: 180px; width: auto; object-fit: contain;">
+                        <div class="card-body text-center" style="padding: 10px; font-size: 14px;">
+                            <h5>${producto.nombre}</h5>
+                            <p class="text-muted mb-1">PEN ${producto.precio}</p>
+                            <button class="btn btn-primary ver-mas-btn" data-id="${producto.id_catalogo}" style="padding: 5px 10px; font-size: 12px;">Ver más</button>
+                        </div>
+                    </div>
+                </div>
+            `);
+
+            if ((index + 1) % 3 === 0 || index === productos.length - 1) {
+                carruselContenedor.innerHTML += `
+                    <div class="carousel-item ${index < 3 ? 'active' : ''}">
+                        <div class="row justify-content-center">${grupoProductos.join("")}</div>
+                    </div>
+                `;
+                grupoProductos = []; // 🔹 Reinicia la agrupación
+            }
+        });
+
+        agregarEventosCarrusel();
+    } catch (error) {
+        console.error("❌ Error al cargar productos en el carrusel:", error);
+    }
+}
+
+// ✅ Función para abrir el modal cuando se haga clic en "Ver más"
+function agregarEventosCarrusel() {
+    document.querySelectorAll(".ver-mas-btn").forEach(button => {
+        button.addEventListener("click", function () {
+            const productoId = this.getAttribute("data-id");
+            mostrarDetallesProducto(productoId);
+        });
+    });
+}
+
+// ✅ Función para mostrar detalles en el modal
+function mostrarDetallesProducto(productoId) {
+    fetch(`http://127.0.0.1:5000/catalogo/${productoId}`)
+        .then(response => response.json())
+        .then(producto => {
+            console.log("📦 Detalles del producto:", producto);
+
+            document.getElementById("producto-nombre-modal").innerText = producto.nombre;
+            document.getElementById("producto-img-modal").src = 
+                (Array.isArray(producto.imagenes) && producto.imagenes.length > 0) 
+                ? producto.imagenes[0].replace("assets/img/catalogo/", "static/img/catalogo/")
+                : "/static/img/default.png";
+
+            document.getElementById("producto-material").innerText = producto.material || "No especificado";
+            document.getElementById("producto-stock").innerText = producto.stock ? `${producto.stock} unidades` : "Stock no disponible";
+            document.getElementById("producto-color").innerText = producto.color || "No especificado";
+            document.getElementById("producto-precio-modal").innerText = `PEN ${producto.precio || "No definido"}`;
+
+            const modal = new bootstrap.Modal(document.getElementById("productModal"));
+            modal.show();
+        })
+        .catch(error => console.error("❌ Error al obtener detalles del producto:", error));
+}
+</script>
+
+<!-- ✅ Bootstrap y Catálogo JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="{{ url_for('static', filename='js/catalogo.js') }}"></script>
 
 
 
@@ -187,84 +281,67 @@
 
 
 
+<section id="appointment" class="appointment section light-background">
 
-      <form action="/citas" method="post" role="form" class="php-email-form">
+        <!-- Título de la sección -->
         <div class="container section-title" data-aos="fade-up">
           <h2>Solicita una Cita</h2>
-          <p>¿Quieres trabajar con nosotros?</p>
-          <p>Por favor completa el siguiente formulario para agendar una reunión con nuestro equipo.</p>
-        </div>
-      
+          <p>Por favor completa el siguiente formulario para agendar una reunión con nuestro equipo. Te contactaremos
+            para confirmar tu cita y ayudarte con tus requerimientos.</p>
+        </div><!-- End Section Title -->
+
         <div class="container" data-aos="fade-up" data-aos-delay="100">
-          <div class="row">
-            <div class="col-md-4 form-group">
-              <input type="text" name="name" class="form-control" id="name" placeholder="Tu Nombre" required>
+
+          <form action="forms/appointment.php" method="post" role="form" class="php-email-form">
+            <div class="row">
+              <div class="col-md-4 form-group">
+                <input type="text" name="name" class="form-control" id="name" placeholder="Tu Nombre" required>
+              </div>
+              <div class="col-md-4 form-group mt-3 mt-md-0">
+                <input type="email" class="form-control" name="email" id="email" placeholder="Tu Correo Electrónico"
+                  required>
+              </div>
+              <div class="col-md-4 form-group mt-3 mt-md-0">
+                <input type="tel" class="form-control" name="phone" id="phone" placeholder="Tu Teléfono" required>
+              </div>
             </div>
-            <div class="col-md-4 form-group mt-3 mt-md-0">
-              <input type="email" class="form-control" name="email" id="email" placeholder="Tu Correo Electrónico" required>
+            <div class="row">
+              <div class="col-md-4 form-group mt-3">
+                <input type="datetime-local" name="date" class="form-control datepicker" id="date" required>
+              </div>
+              <div class="col-md-4 form-group mt-3">
+                <select name="department" id="department" class="form-select" required>
+                  <option value="">Selecciona el servicio</option>
+                  <option value="Soporte Técnico">Soporte Técnico</option>
+                  <option value="Exportaciones">Exportaciones</option>
+                  <option value="Ventas">Ventas</option>
+                </select>
+              </div>
+              <div class="col-md-4 form-group mt-3">
+                <select name="contact_person" id="contact_person" class="form-select" required>
+                  <option value="">Selecciona persona de contacto</option>
+                  <option value="Juan Pérez">Juan Pérez</option>
+                  <option value="María López">María López</option>
+                  <option value="Carlos Ramírez">Carlos Ramírez</option>
+                </select>
+              </div>
             </div>
-            <div class="col-md-4 form-group mt-3 mt-md-0">
-              <input type="tel" class="form-control" name="phone" id="phone" placeholder="Tu Teléfono" required>
+
+            <div class="form-group mt-3">
+              <textarea class="form-control" name="message" rows="5" placeholder="Mensaje (Opcional)"></textarea>
             </div>
-            <div class="col-md-4 form-group mt-3 mt-md-0">
-              <input type="tel" class="form-control" name="phone_secondary" id="phone_secondary" placeholder="Teléfono Secundario (Opcional)">
+
+            <div class="mt-3">
+              <div class="loading">Cargando...</div>
+              <div class="error-message"></div>
+              <div class="sent-message">Tu solicitud de cita ha sido enviada con éxito. ¡Gracias!</div>
+              <div class="text-center"><button type="submit">Solicitar Cita</button></div>
             </div>
-            
-          </div>
-          <div class="row">
-            <div class="col-md-4 form-group mt-3">
-              <input type="date" name="date" class="form-control" id="date" required>
-            </div>
-            
-            <div class="col-md-4 form-group mt-3">
-              <select name="department" id="department" class="form-select" required>
-                <option value="">Selecciona el servicio</option>
-                <option value="Soporte Técnico">Soporte Técnico</option>
-                <option value="Exportaciones">Exportaciones</option>
-                <option value="Ventas">Ventas</option>
-              </select>
-            </div>
-            <div class="col-md-4 form-group mt-3">
-              <select name="contact_person" id="contact_person" class="form-select" required>
-                <option value="">Selecciona persona de contacto</option>
-                <option value="Juan Pérez">Juan Pérez</option>
-                <option value="María López">María López</option>
-                <option value="Carlos Ramírez">Carlos Ramírez</option>
-              </select>
-            </div>
-          </div>
-          <div class="form-group mt-3">
-            <textarea class="form-control" name="message" rows="5" placeholder="Mensaje (Opcional)"></textarea>
-          </div>
-      
-          <div class="mt-3">
-            <div class="loading">Cargando...</div>
-            <div class="error-message"></div>
-            <div class="sent-message">Tu solicitud de cita ha sido enviada con éxito. ¡Gracias!</div>
-            <div class="text-center"><button type="submit">Solicitar Cita</button></div>
-          </div>
-        </div>
-      </form>
-      
+          </form>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  
         </div>
 
-      </section>
+      </section><!-- /Appointment Section -->
 
 
     </section>
@@ -423,78 +500,55 @@
 
 
     <section id="faq" class="faq section light-background">
+    <div class="container section-title" data-aos="fade-up">
+      <h2>Preguntas Frecuentes para Infotel Business S.A.C.</h2>
+    </div>
 
-     
-      <div class="container section-title" data-aos="fade-up">
-        <h2>Preguntas Frecuentes para Infotel Business S.A.C.</h2>
-        <p></p>
-      </div>
-
-      <div class="container">
-
-        <div class="row justify-content-center">
-
-          <div class="col-lg-10" data-aos="fade-up" data-aos-delay="100">
-
-            <div class="faq-container">
-
-              <div class="faq-item">
-                <h3>¿Qué tipo de maquinaria textil importan y ofrecen?</h3>
-                <div class="faq-content">
-                  <p></p>
-                </div>
-                <i class="faq-toggle bi bi-chevron-right"></i>
-              </div>
-
-              <div class="faq-item">
-                <h3>¿Cómo apoyan la revalorización de las artesanías locales?</h3>
-                <div class="faq-content">
-                  <p></p>
-                </div>
-                <i class="faq-toggle bi bi-chevron-right"></i>
-              </div>
-
-              <div class="faq-item">
-                <h3>¿Cuáles son los principales mercados internacionales a los que exportan?</h3>
-                <div class="faq-content">
-                  <p></p>
-                </div>
-                <i class="faq-toggle bi bi-chevron-right"></i>
-              </div>
-
-              <div class="faq-item">
-                <h3>¿Ofrecen asesoría técnica para la implementación de maquinaria?</h3>
-                <div class="faq-content">
-                  <p></p>
-                </div>
-                <i class="faq-toggle bi bi-chevron-right"></i>
-              </div>
-
-              <div class="faq-item">
-                <h3>¿Qué certificaciones o garantías tienen los productos y maquinaria que comercializan?</h3>
-                <div class="faq-content">
-                  <p></p>
-                </div>
-                <i class="faq-toggle bi bi-chevron-right"></i>
-              </div>
-
-              <div class="faq-item">
-                <h3>¿Cómo puedo iniciar un proceso de exportación con Infotel Business?</h3>
-                <div class="faq-content">
-                  <p></p>
-                </div>
-                <i class="faq-toggle bi bi-chevron-right"></i>
-              </div>
-
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-lg-10" data-aos="fade-up" data-aos-delay="100">
+          <div class="faq-container">
+            <div class="faq-item">
+              <h3>¿Qué tipo de maquinaria textil importan y ofrecen?</h3>
+              <i class="faq-toggle bi bi-chevron-right"></i>
             </div>
-
-          </div><!-- End Faq Column-->
-
+            <div class="faq-item">
+              <h3>¿Cómo apoyan la revalorización de las artesanías locales?</h3>
+              <i class="faq-toggle bi bi-chevron-right"></i>
+            </div>
+            <div class="faq-item">
+              <h3>¿Cuáles son los principales mercados internacionales a los que exportan?</h3>
+              <i class="faq-toggle bi bi-chevron-right"></i>
+            </div>
+            <div class="faq-item">
+              <h3>¿Ofrecen asesoría técnica para la implementación de maquinaria?</h3>
+              <i class="faq-toggle bi bi-chevron-right"></i>
+            </div>
+            <div class="faq-item">
+              <h3>¿Qué certificaciones o garantías tienen los productos y maquinaria que comercializan?</h3>
+              <i class="faq-toggle bi bi-chevron-right"></i>
+            </div>
+            <div class="faq-item">
+              <h3>¿Cómo puedo iniciar un proceso de exportación con Infotel Business?</h3>
+              <i class="faq-toggle bi bi-chevron-right"></i>
+            </div>
+          </div>
         </div>
-
       </div>
+    </div>
 
-    </section><!-- /Faq Section -->
+    <!-- Popup para mostrar respuesta de la pregunta -->
+    <div id="faq-popup" class="faq-popup" style="display: none;">
+      <div class="faq-popup-content">
+        <!-- Botón de cerrar (X) -->
+        <span id="close-popup-btn" class="close-popup-btn">&times;</span> 
+        <h4 id="faq-popup-question"></h4>
+        <p id="faq-popup-answer"></p>
+        <img id="faq-popup-img" src="" alt="Imagen de respuesta" width="100%" />
+      </div>
+    </div>
+  </section>
+
 
     <!-- Contact Section -->
     <section id="contact" class="contact section">

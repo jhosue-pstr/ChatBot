@@ -92,6 +92,9 @@ def registrar():
 def catalogo():
     return render_template('catalogo.html')  
 
+@app.route('/carrito')
+def ver_carrito():
+    return render_template('carrito.html')
 
 @app.route('/citas', methods=['POST'])
 def enviar_cita():
