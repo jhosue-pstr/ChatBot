@@ -1746,6 +1746,7 @@ section,
 
 /* ✅ Estilos para cada pregunta */
 .faq-item {
+      text-align: center;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -1762,6 +1763,7 @@ section,
 }
 
 .faq-item h3 {
+    text-align: center;
     margin: 0;
     font-size: 18px;
     font-weight: 600;

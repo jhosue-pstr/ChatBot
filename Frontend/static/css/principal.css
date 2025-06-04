@@ -6,7 +6,7 @@
 #carouselProductos .carousel-inner .row {
     display: flex;
     justify-content: center;
-    gap: 15px; /* ✅ Espacio entre productos */
+    gap: 15px;  
 }
 
 #carouselProductos .carousel-item {
@@ -15,26 +15,26 @@
 
 #carouselProductos .card {
     width: 100%;
-    max-width: 230px; /* ✅ Tamaño reducido */
+    max-width: 230px; 
     margin: auto;
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); /* ✅ Sombra sutil */
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); 
 }
 
 #carouselProductos img {
-    max-height: 180px; /* ✅ Imágenes más compactas */
+    max-height: 180px; 
     width: auto;
     object-fit: contain;
 }
 
 .carousel-caption {
-    background: rgba(0, 0, 0, 0.4); /* ✅ Más transparente */
+    background: rgba(0, 0, 0, 0.4); 
     padding: 4px;
-    font-size: 12px; /* ✅ Texto más compacto */
+    font-size: 12px; 
     color: white;
     border-radius: 5px;
 }
 
 .ver-mas-btn {
     padding: 4px 8px;
-    font-size: 12px; /* ✅ Botón más compacto */
+    font-size: 12px; 
 }
